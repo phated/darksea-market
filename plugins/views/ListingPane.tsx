@@ -78,10 +78,18 @@ function UnlistButton({item, contract}) {
 
 function ListItem({item, contract}) {
     const artifactId = artifactIdFromEthersBN(item.tokenID);
+    //@ts-expect-error
+    const artifact = df.getArtifactById(artifactId);
+    if (item.rarity !== artifact.rarity) {
+        console.log(`Scammer`, item);
+    }
+    if (item.artifactType !== artifact.artifactType) {
+        console.log(`Scammer`, item);
+    }
     const defaultArtifact = {
         id: artifactId,
-        artifactType: item.artifactType,
-        rarity: item.rarity,
+        artifactType: artifact.artifactType,
+        rarity: artifact.rarity,
         upgrade: {
             energyCapMultiplier: -1,
             energyGroMultiplier: -1,
